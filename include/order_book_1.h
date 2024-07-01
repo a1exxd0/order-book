@@ -15,7 +15,7 @@ struct either {
 
 template<typename _cmp=std::less<order>>
     struct compare_pairs_for_book {
-    [[nodiscard]] inline bool operator<(const std::pair<order, std::time_t> &o1, const std::pair<order, std::time_t> &o2)
+    [[nodiscard]] inline bool operator()(const std::pair<order, std::time_t> &o1, const std::pair<order, std::time_t> &o2)
     const {
         _cmp cmp;
         return cmp(o1.first, o2.first);
