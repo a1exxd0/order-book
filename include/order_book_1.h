@@ -23,7 +23,7 @@ template<typename _cmp=std::less<order>>
 };
 
 class order_book_1 {
-private:    
+public:
     using bid_queue_t = 
     std::priority_queue<
         std::pair<order, std::time_t>,
@@ -35,7 +35,7 @@ private:
         std::pair<order, std::time_t>, 
         std::vector<std::pair<order, std::time_t>>, 
         compare_pairs_for_book<>>;
-
+private:
     // Stores the pair<order, time_t> of bids. Should only contain limit orders.    
     bid_queue_t bids;
 
@@ -50,7 +50,27 @@ private:
     // Iterates from smallest to biggest
     std::set<stop_order> stop_offers;
 
-    
+    /**
+     * MUST HAVE AN INPUT OF AN ORDER THAT CAN BE MATCHED WITH ANOTHER. ONLY EXECUTES
+     *
+     * @param o order that is executable
+     * @return vector of orders (or components of the order) it matched with
+     */
+    [[nodiscard]] std::vector<order> execute_order(const order &o);
+
+    /**
+     *
+     * @param curr_offer_price Lowest current offer price available at front of heap
+     * @return True if a bid was queued, false otherwise
+     */
+    [[nodiscard]] bool check_stop_bids(const double &curr_offer_price);
+
+    /**
+     *
+     * @param curr_bid_price Highest current bid price available at front of heap
+     * @return True if an offer was queued, false otherwise
+     */
+    [[nodiscard]] bool check_stop_offers(const double &curr_bid_price);
 
 public:
 
