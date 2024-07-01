@@ -51,26 +51,47 @@ private:
     std::set<stop_order> stop_offers;
 
     /**
-     * MUST HAVE AN INPUT OF AN ORDER THAT CAN BE MATCHED WITH ANOTHER. ONLY EXECUTES
+     * Bid order
      *
      * @param o order that is executable
      * @return vector of orders (or components of the order) it matched with
      */
-    [[nodiscard]] std::vector<order> execute_order(const order &o);
+    [[nodiscard]] std::vector<order> execute_bid (const order &o);
+
+    /**
+     * Offer order
+     *
+     * @param o order that is executable
+     * @return vector of orders (or components of the order) it matched with
+     */
+    [[nodiscard]] std::vector<order> execute_offer (const order &o);
+
+    /**
+     * Places an order into queue. MUST HAVE AN INPUT OF AN ORDER NOT MATCHED WITH ANOTHER.
+     * @param o order to be inserted into queue
+     */
+    void place_order(const order &o);
+
+    /**
+     * Places a stop order into queue. MUST HAVE AN INPUT OF AN ORDER NOT MATCHED WITH ANOTHER.
+     * @param o order to be inserted into queue
+     * @return true if the order ended up in stop queue, false if it was directly sent to make_order
+     */
+    [[nodiscard]] bool place_stop_order(const order &o);
 
     /**
      *
-     * @param curr_offer_price Lowest current offer price available at front of heap
      * @return True if a bid was queued, false otherwise
      */
-    [[nodiscard]] bool check_stop_bids(const double &curr_offer_price);
+    [[nodiscard]] bool check_stop_bids();
 
     /**
      *
-     * @param curr_bid_price Highest current bid price available at front of heap
      * @return True if an offer was queued, false otherwise
      */
-    [[nodiscard]] bool check_stop_offers(const double &curr_bid_price);
+    [[nodiscard]] bool check_stop_offers();
+
+
 
 public:
 
