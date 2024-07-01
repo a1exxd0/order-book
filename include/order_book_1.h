@@ -81,9 +81,19 @@ public:
     [[nodiscard]] order get_top_bid() const { return bids.top().first; }
     [[nodiscard]] order get_top_offer() const { return offers.top().first; }
 
-
+    /**
+     * Make an order
+     * @param incoming incoming order
+     * @return either the result of execution or an error code
+     */
     [[nodiscard]] either<std::string, std::string> make_order(const order &incoming);
-    [[nodiscard]] either<std::string, std::string> make_stop_order(const order &incoming);
+
+    /**
+     * Make a stop order
+     * @param incoming incoming stop order
+     * @return either the result of execution or an error code
+     */
+    [[nodiscard]] either<std::string, std::string> make_stop_order(const stop_order &incoming);
     
 };
 

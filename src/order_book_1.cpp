@@ -50,6 +50,6 @@ namespace {
 
 }
 
-[[nodiscard]] either<std::string, std::string> order_book_1::make_stop_order(const order &incoming) {
+[[nodiscard]] either<std::string, std::string> order_book_1::make_stop_order(const stop_order &incoming) {
 
 }
