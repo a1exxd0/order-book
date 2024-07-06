@@ -24,7 +24,8 @@ foreach(TEST_FILE ${TEST_FILES})
     get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
     
     # Create an executable for each test
-    add_executable(${TEST_NAME} ${SOURCES} ${TEST_FILE})
+    add_executable(${TEST_NAME} ${SOURCES} ${TEST_FILE}
+            ../include/helper_types.h)
     
     # Link the GTest and pthread libraries
     target_link_libraries(${TEST_NAME} ${GTEST_LIBRARIES} pthread)
